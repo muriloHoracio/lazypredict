@@ -307,9 +307,19 @@ class LazyClassifier:
                 b_accuracy = balanced_accuracy_score(y_test, y_pred)
                 f1 = f1_score(y_test, y_pred, average="weighted")
                 try:
-                    roc_auc = roc_auc_score(pd.get_dummies(y_test), 
-                                            pd.get_dummies(y_pred), 
-                                            multi_class=roc_auc_multi)
+                    ohe = OneHotEncoder(
+                        categories=[np.unique(y_train.append(y_test))],
+                        sparse=False
+                    )
+                    roc_auc = roc_auc_score(
+                        ohe.fit_transform(
+                            y_test.values.reshape(y_test.shape[0], 1)
+                        ), 
+                        ohe.fit_transform(
+                            y_pred.reshape(y_pred.shape[0], 1)
+                        ), 
+                        multi_class=roc_auc_multi
+                    )
                 except Exception as exception:
                     roc_auc = None
                     if self.ignore_warnings is False:

@@ -307,8 +307,8 @@ class LazyClassifier:
                 b_accuracy = balanced_accuracy_score(y_test, y_pred)
                 f1 = f1_score(y_test, y_pred, average="weighted")
                 try:
-                    roc_auc = roc_auc_score(y_test, 
-                                            y_pred, 
+                    roc_auc = roc_auc_score(pd.get_dummies(y_test), 
+                                            pd.get_dummies(y_pred), 
                                             multi_class=roc_auc_multi)
                 except Exception as exception:
                     roc_auc = None

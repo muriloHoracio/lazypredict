@@ -3,6 +3,11 @@ os:
   - osx
   - windows
 
+dist:
+  - bionic
+  - focal
+  - Jammy
+
 jobs:
   allow_failures:
     - os: osx
@@ -11,6 +16,8 @@ jobs:
 language: python
 python:
 - 3.8
+- 3.9
+- 3.10
 
 install: pip install -U tox-travis
 script: tox
@@ -24,4 +31,4 @@ deploy:
   on:
     tags: true
     repo: shankarpandala/lazypredict
-    python: 3.8
+    python: 3.9
